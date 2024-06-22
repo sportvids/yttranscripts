@@ -5,9 +5,11 @@ app = Flask(__name__)
 
 def format_timestamp(seconds):
     """Convert seconds to HH:MM:SS format"""
-    hours = int(seconds // 3600)
-    minutes = int((seconds % 3600) // 60)
-    seconds = int(seconds % 60)
+    total_seconds = int(seconds)
+    hours = total_seconds // 3600
+    minutes = (total_seconds % 3600) // 60
+    seconds = total_seconds % 60
+    
     return f"{hours:02d}:{minutes:02d}:{seconds:02d}"
 
 def fetch_video_transcript(video_url):
