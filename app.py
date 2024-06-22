@@ -3,6 +3,13 @@ from youtube_transcript_api import YouTubeTranscriptApi
 
 app = Flask(__name__)
 
+def format_timestamp(seconds):
+    """Convert seconds to HH:MM:SS format"""
+    hours = int(seconds // 3600)
+    minutes = int((seconds % 3600) // 60)
+    seconds = int(seconds % 60)
+    return f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+
 def fetch_video_transcript(video_url):
     # Extracting Video ID from URL
     if "youtu.be" in video_url:
@@ -25,12 +32,6 @@ def fetch_video_transcript(video_url):
         return full_transcript
     except Exception as e:
         return f"Failed to fetch transcript: {str(e)}"
-
-def format_timestamp(seconds):
-    """Convert seconds to MM:SS format"""
-    minutes = int(seconds // 60)
-    seconds = int(seconds % 60)
-    return f"{minutes:02d}:{seconds:02d}"
 
 @app.route('/get_transcript', methods=['POST'])
 def get_transcript():
